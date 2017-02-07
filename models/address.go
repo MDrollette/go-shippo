@@ -1,5 +1,7 @@
 package models
 
+import "encoding/json"
+
 const (
 	AddressObjectSourceFullyEntered     = "FULLY_ENTERED"
 	AddressObjectSourcePartiallyEntered = "PARTIALLY_ENTERED"
