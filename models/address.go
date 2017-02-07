@@ -8,6 +8,7 @@ const (
 
 // See https://goshippo.com/docs/reference#addresses
 type AddressInput struct {
+	ObjectID      string `json:"-"`
 	ObjectPurpose string `json:"object_purpose"`
 	Name          string `json:"name,omitempty"`
 	Company       string `json:"company,omitempty"`
@@ -22,6 +23,22 @@ type AddressInput struct {
 	IsResidential bool   `json:"is_residential"`
 	Validate      bool   `json:"validate"`
 	Metadata      string `json:"metadata,omitempty"`
+}
+
+func (a *AddressInput) MarshalJSON() ([]byte, error) {
+	if a.ObjectID != "" {
+		return json.Marshal(a.ObjectID)
+	}
+
+	return json.Marshal(*a)
+}
+
+func (a *AddressInput) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &a.ObjectID); nil == err {
+		return nil
+	}
+
+	return json.Unmarshal(data, *a)
 }
 
 // See https://goshippo.com/docs/reference#addresses

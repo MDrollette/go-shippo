@@ -2,6 +2,7 @@ package models
 
 // See https://goshippo.com/docs/reference#parcels
 type ParcelInput struct {
+	ObjectID     string       `json:"-"`
 	Length       string       `json:"length"`
 	Width        string       `json:"width"`
 	Height       string       `json:"height"`
@@ -11,6 +12,22 @@ type ParcelInput struct {
 	Template     string       `json:"template,omitempty"` // https://goshippo.com/docs/reference#parceltemplates
 	Metadata     string       `json:"metadata,omitempty"`
 	Extra        *ParcelExtra `json:"extra,omitempty"`
+}
+
+func (p *ParcelInput) MarshalJSON() ([]byte, error) {
+	if p.ObjectID != "" {
+		return json.Marshal(p.ObjectID)
+	}
+
+	return json.Marshal(*p)
+}
+
+func (p *ParcelInput) UnmarshalJSON(data []byte) error {
+	if err := json.Unmarshal(data, &p.ObjectID); nil == err {
+		return nil
+	}
+
+	return json.Unmarshal(data, *p)
 }
 
 type ParcelExtra struct {

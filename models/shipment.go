@@ -43,9 +43,9 @@ const (
 // See https://goshippo.com/docs/reference#shipments
 type ShipmentInput struct {
 	ObjectPurpose      string         `json:"object_purpose"`
-	AddressFrom        string         `json:"address_from"`
-	AddressTo          string         `json:"address_to"`
-	Parcel             string         `json:"parcel"`
+	AddressFrom        *AddressInput  `json:"address_from"`
+	AddressTo          *AddressInput  `json:"address_to"`
+	Parcel             *ParcelInput   `json:"parcel"`
 	ReturnOf           string         `json:"return_of,omitempty"`
 	SubmissionType     string         `json:"submission_type,omitempty"`
 	SubmissionDate     time.Time      `json:"submission_date,omitempty"`
