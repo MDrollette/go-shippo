@@ -1,5 +1,7 @@
 package models
 
+import "encoding/json"
+
 // See https://goshippo.com/docs/reference#parcels
 type ParcelInput struct {
 	ObjectID     string       `json:"-"`
